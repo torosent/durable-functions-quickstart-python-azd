@@ -7,18 +7,26 @@
         "excludedTypes": "Request"
       },
       "enableLiveMetricsFilters": true
+    },
+    "logLevel": {
+      "DurableTask.AzureManagedBackend": "Information"
     }
   },
   "extensions": {
-     "durableTask": {
-       "tracing": {
-         "distributedTracingEnabled": true,
-         "version": "None"
-       }
-     }
-   },
+    "durableTask": {
+      "hubName": "%TASKHUB_NAME%",
+      "storageProvider": {
+        "type": "azureManaged",
+        "connectionStringName": "DURABLE_TASK_SCHEDULER_CONNECTION_STRING"
+      },
+      "tracing": {
+        "distributedTracingEnabled": true,
+        "version": "None"
+      }
+    }
+  },
   "extensionBundle": {
-    "id": "Microsoft.Azure.Functions.ExtensionBundle",
+    "id": "Microsoft.Azure.Functions.ExtensionBundle.Preview",
     "version": "[4.*, 5.0.0)"
   }
 }

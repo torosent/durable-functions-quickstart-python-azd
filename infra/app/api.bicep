@@ -19,6 +19,8 @@ param enableBlob bool = true
 param enableQueue bool = false
 param enableTable bool = false
 param enableFile bool = false
+param dtsURL string = ''
+param taskHubName string = ''
 
 @allowed(['SystemAssigned', 'UserAssigned'])
 param identityType string = 'UserAssigned'
@@ -37,6 +39,12 @@ var baseAppSettings = {
   APPLICATIONINSIGHTS_CONNECTION_STRING: applicationInsights.properties.ConnectionString
 }
 
+// Durable Task Scheduler settings
+var dtsSettings = !empty(dtsURL) ? {
+  DURABLE_TASK_SCHEDULER_CONNECTION_STRING: 'Endpoint=${dtsURL};Authentication=ManagedIdentity;ClientID=${identityClientId}'
+  TASKHUB_NAME: taskHubName
+} : {}
+
 // Dynamically build storage endpoint settings based on feature flags
 var blobSettings = enableBlob ? { AzureWebJobsStorage__blobServiceUri: stg.properties.primaryEndpoints.blob } : {}
 var queueSettings = enableQueue ? { AzureWebJobsStorage__queueServiceUri: stg.properties.primaryEndpoints.queue } : {}
@@ -50,7 +58,8 @@ var allAppSettings = union(
   queueSettings,
   tableSettings,
   fileSettings,
-  baseAppSettings
+  baseAppSettings,
+  dtsSettings
 )
 
 resource stg 'Microsoft.Storage/storageAccounts@2022-09-01' existing = {
