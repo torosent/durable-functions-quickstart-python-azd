@@ -21,7 +21,7 @@ This template repository contains a Durable Functions sample demonstrating the f
 
 [Durable Functions](https://learn.microsoft.com/azure/azure-functions/durable/durable-functions-overview) orchestrates stateful, long-running, multi-step logic with *durable execution*. State is persisted by a [backend provider](https://learn.microsoft.com/azure/azure-functions/durable/durable-functions-storage-providers). This sample uses the **[Azure Durable Task Scheduler](https://learn.microsoft.com/azure/azure-functions/durable/durable-task-scheduler/durable-task-scheduler)** provider, a fully managed backend purpose-built for Durable Functions and the Durable Task Framework. It replaces the Azure Storage backend and provides a dedicated dashboard for monitoring orchestrations.
 
-> DTS is currently in preview. The sample uses the preview extension bundle `Microsoft.Azure.Functions.ExtensionBundle.Preview`.
+> This sample uses the standard Functions extension bundle (`Microsoft.Azure.Functions.ExtensionBundle`, version `[4.*, 5.0.0)`), which provides the `azureManaged` storage provider for the Durable Task Scheduler backend.
 
 ## Prerequisites
 
