@@ -37,7 +37,6 @@ param dtsName string = ''
 param taskHubName string = ''
 param dtsLocation string = location
 param dtsSkuName string = 'Consumption'
-param dtsCapacity int = 1
 @description('Id of the user identity to be used for testing and debugging. This is not required in production. Leave empty if not needed.')
 param principalId string = deployer().objectId
 
@@ -94,7 +93,7 @@ module api './app/api.bicep' = {
     applicationInsightsName: monitoring.outputs.name
     appServicePlanId: appServicePlan.outputs.resourceId
     runtimeName: 'python'
-    runtimeVersion: '3.11'
+    runtimeVersion: '3.12'
     storageAccountName: storage.outputs.name
     enableBlob: storageEndpointConfig.enableBlob
     enableQueue: storageEndpointConfig.enableQueue
@@ -224,7 +223,6 @@ module dts './app/dts.bicep' = {
       '0.0.0.0/0'
     ]
     skuName: dtsSkuName
-    skuCapacity: dtsCapacity
   }
 }
 
